@@ -3,14 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Home;
 
-// Route::view('/', 'welcome');
-
 Route::get('/', Home::class)->name('home');
-
-
-// Route::view('dashboard', 'dashboard')
-//     ->middleware(['auth', 'verified'])
-//     ->name('dashboard');
+Route::get('noticias', Home::class)->name('noticias');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
