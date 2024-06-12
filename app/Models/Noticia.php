@@ -9,7 +9,13 @@ class Noticia extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','description', 'date','image','content'];
+    protected $fillable = [
+        'title',
+        'description',
+        'date',
+        'image',
+        'content'
+        ];
 
 
 
