@@ -28,9 +28,9 @@ class Home extends Component
         $this->validate();
 
         Noticia::create([
-            'title'=>'Titulo',
-            'description'=>'descrição',
-            'image'=>'imagem',
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'image'=>$request->image,
             'user_id'=>1
         ]);
     }
