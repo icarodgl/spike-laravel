@@ -1,67 +1,25 @@
-<div class="flex flex-col" >
-
-    <form method="post" class="flex justify-center w-1/2" wire:submit.prevent='create'>
-        @csrf
-        <div class="flex flex-col">
-            <div class="flex flex-col">
-                <label class="text-white" for="title">titulo</label>
-                <input type="text" name="title" id="title" wire:model="title">
-                @error('title')
-                    <span class="text-white">{{ $message }} </span>
-                @enderror
-            </div>
-
-            <div class="flex flex-col">
-                <label class="text-white" for="description">Descrição</label>
-                <textarea type="text" name="description" id="description" wire:model="description"></textarea>
-                @error('description')
-                    <span class="text-white">{{ $message }} </span>
-                @enderror
-            </div>
-
-            <div class="flex flex-col"
-            x-data="{ isUploading: false, progress: 0 }"
-
-            x-on:livewire-upload-start="isUploading = true"
-
-            x-on:livewire-upload-finish="isUploading = false"
-
-            x-on:livewire-upload-error="isUploading = false"
-
-            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                @if ($image)
-                <img class="max-w-xs max-h-xs" src="{{ $image->temporaryUrl() }}">
-            @endif
-            <div x-show="isUploading">
-
-                <progress max="100" x-bind:value="progress"></progress>
-
-            </div>
-                <label class="text-white" for="image">Imagem</label>
-                <input type="file" accept="image/*" name="image" id="image" wire:model="image">
-                @error('image')
-                    <span class="text-white">{{ $message }} </span>
-                @enderror
-            </div>
-
-            <button type="submit" class="text-white">Criar</button>
-        </div>
-
-    </form>
-    <ul class="flex w-8/12 flex-col self-center mt-6">
+<div class="flex flex-col content-center">
+    <h1 class="text-center text-slate-300 text-4xl">Notícias</h1>
+    <ul class="flex flex-col w-10/12 self-center mt-6">
         @foreach ($noticias as $noticia)
-            <li class="flex flex-col flex-wrap">
-                <div>
-                    <h1 class="text-white"> {{ $noticia->title }}</h1>
+            <li class="flex mb-5 max-h-96">
+                <div class="w-96 h-48 flex justify-center">
+                    <img class="self-center max-w-36 max-h-36" src="{{ $noticia->image }}" alt="imagem">
                 </div>
-                <div>
-                    <h2 class="text-white"> {{ $noticia->description }}</h2>
+                <div class="w-svw h-48">
+                    <div>
+                        <h1 class="text-slate-300 text-center text-xl mb-3"> {{ $noticia->title }}</h1>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 text-justify text-sm">Postado em: {{$noticia->created_at->format("j, n, Y")}}</span>
+                        <p class="text-slate-500 text-justify"> {{ $noticia->description }}</p>
+                    </div>
                 </div>
+                @auth
                 <div>
-                    <picture>
-                        <img class="max-w-1.5 max-h-1.5" src="{{$noticia->image}}"  alt="imagem" style="width:auto;">
-                    </picture>
+                    <a href="{{route('noticias',['noticia' => $noticia->id ])}}" class="self-end text-slate-300 cursor-pointer">Editar</a>
                 </div>
+                @endauth
             </li>
         @endforeach
     </ul>
