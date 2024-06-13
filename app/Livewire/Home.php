@@ -5,33 +5,62 @@ namespace App\Livewire;
 use App\Models\Noticia;
 use Livewire\Component;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+
+use Illuminate\Support\Facades\Storage;
+
+
 class Home extends Component
 {
+    use WithPagination;
+    use WithFileUploads;
 
-    protected $rules = [
-        'title'=>'required|min:3|max:255',
-        'description'=>'required|min:3|max:255',
-        'image'=>'required|min:3|max:255',
-    ];
+    #[Validate('required|min:3')]
+    public $title = '';
+
+    #[Validate('required|min:3')]
+    public $description = '';
+    #[Validate('image|max:1024')]
+    public $image = null;
+
 
     public function render()
     {
 
-        $noticias = Noticia::get();
+        $noticias = Noticia::paginate(5);
 
+        foreach ($noticias as $noticia) {
+            $noticia->image =asset($noticia->image);
+        }
         return view('livewire.home', [
-            'noticias'=> $noticias
+            'noticias' => $noticias
         ]);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $this->validate();
 
-        Noticia::create([
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'image'=>$request->image,
-            'user_id'=>1
+        $disk = Storage::build([
+                'driver' => 'local',
+                'root' => './',
         ]);
+
+        $imagePath =$disk->put('images', $this->image);
+
+        $request->user()->noticias()->create(
+            [
+                'title' => $this->title,
+                'description' => $this->description,
+                'image' => $imagePath
+            ]
+        );
+
+        $this->title ='';
+        $this->description= '';
+        $this->image = null;
     }
 }
