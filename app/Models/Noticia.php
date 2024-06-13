@@ -12,9 +12,8 @@ class Noticia extends Model
     protected $fillable = [
         'title',
         'description',
-        'date',
         'image',
-        'content'
+        'user_id'
         ];
 
 
