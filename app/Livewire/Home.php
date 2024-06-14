@@ -6,21 +6,34 @@ use App\Models\Noticia;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-
-
 class Home extends Component
 {
     use WithPagination;
+
+
+    public $search = '';
+
     public function render()
     {
 
-        $noticias = Noticia::latest()->paginate(5);
+        $noticias = Noticia::where('title', 'LIKE', "%$this->search%")->latest()->paginate(6);
 
         foreach ($noticias as $noticia) {
             $noticia->image =asset($noticia->image);
         }
         return view('livewire.home', [
-            'noticias' => $noticias
+            'noticias' => $noticias,
+        ]);
+    }
+
+    public function searchNoticia(){
+        $noticias = Noticia::where('title', 'LIKE', "%$this->search%")->latest()->paginate(6);
+
+        foreach ($noticias as $noticia) {
+            $noticia->image =asset($noticia->image);
+        }
+        return view('livewire.home', [
+            'noticias' => $noticias,
         ]);
     }
 

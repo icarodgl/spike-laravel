@@ -1,32 +1,40 @@
 <div class="grid justify-center">
-    @if ($noticia)
-    <div class="w-2/3 flex justify-end mt-4">
-        <button wire:click="delete" wire:confirm="Tem certeza que deseja deletar esta noticia?"class="text-white border rounded w-14 bg-red-400">Deletar</button>
-    </div>
-    @endif
-    <form method="post" class="flex justify-center self-center w-2/3" wire:submit.prevent='create'>
+    <form method="post" class="flex justify-center self-center my-3" wire:submit.prevent='create'>
         @csrf
-        <div class="flex flex-col">
-            <div class="flex flex-col">
+        <div class="flex flex-col w-96">
+            <div class="flex flex-col my-3">
                 <label class="text-slate-400" for="title">Titulo:</label>
-                <input type="text" name="title" id="title" wire:model="title">
+                <x-text-input type="text" name="title" id="title" wire:model="title"/>
                 @error('title')
                     <span class="text-red-600">{{ $message }} </span>
                 @enderror
             </div>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col my-3">
                 <label class="text-slate-400" for="description">Descrição:</label>
-                <textarea type="text" name="description" id="description" wire:model="description"></textarea>
+                <x-textarea-input type="text" name="description" id="description" wire:model="description"/>
                 @error('description')
                     <span class="text-red-600">{{ $message }} </span>
                 @enderror
             </div>
 
-            <div class="flex h-52" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+            <div class="flex my-3" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                 x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
-                @if ($image)
+                <div>
+                    {{-- <label class="text-slate-400" for="image">Upload de Imagem:</label> --}}
+
+                    <div class="overflow-hidden h-8 relative mt-4 mb-4">
+                        <button  type="button" class="bg-blue hover:bg-blue-light text-white font-bold py-2 px-4 w-full inline-flex items-center">
+                             <svg fill="#FFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                            </svg>
+                            <span class="ml-2">Upload de Imagem</span>
+                        </button>
+                        <input class="relative bottom-8 z-50 cursor-pointer block w-full opacity-0 pin-r pin-t"  type="file" accept="image/*" name="image" id="image" wire:model="image">
+                    </div>
+                    @if ($image)
                     @if (!is_string($image))
                         <img class="w-48 h-48 m-3" src="{{ $image->temporaryUrl() }}">
                     @else
@@ -36,17 +44,17 @@
                 <div x-show="isUploading">
                     <progress max="100" x-bind:value="progress"></progress>
                 </div>
-                <div>
-                    <label class="text-slate-400" for="image">Upload de Imagem:</label>
-                    <input class="text-slate-400"  type="file" accept="image/*" name="image" id="image" wire:model="image">
-                </div>
-
-                @error('image')
+                    @error('image')
                     <span class="text-red-600">{{ $message }} </span>
                 @enderror
+                </div>
             </div>
+
             <div class="w-full flex justify-end mt-4">
-            <button type="submit" class="text-white border rounded w-14 bg-slate-500">Salvar</button>
+                @if ($noticia)
+                <x-danger-button wire:click="delete" wire:confirm="Tem certeza que deseja deletar esta noticia?">Deletar</x-danger-button>
+                @endif
+            <x-primary-button type="submit">Salvar</x-primary-button>
             </div>
         </div>
     </form>
