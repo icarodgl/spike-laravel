@@ -16,12 +16,15 @@ class FormNoticia extends Component
     #[Url(as: 'noticia')]
     public ?string $noticia = null;
 
-    #[Validate('required|min:3')]
+    #[Validate('required',message:'Campo obrigatório')]
+    #[Validate('min:3',message:'Minimo de 3 caractéres')]
     public $title = '';
 
-    #[Validate('required|min:3')]
+    #[Validate('required',message:'Campo obrigatório')]
+    #[Validate('min:3',message:'Minimo de 3 caractéres')]
     public $description = '';
-    #[Validate('sometimes|image|max:1024')]
+    #[Validate('image', message:'Imagem é obrigatório')]
+    #[Validate('max:1024', message:'Tamanho máximo excedido (1MB)')]
     public $image = null;
     public function render()
     {
