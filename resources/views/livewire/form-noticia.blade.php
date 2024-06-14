@@ -1,7 +1,7 @@
 <div class="grid justify-center">
     @if ($noticia)
     <div class="w-2/3 flex justify-end mt-4">
-        <button class="text-white border rounded w-14 bg-red-400">Deletar</button>
+        <button wire:click="delete" wire:confirm="Tem certeza que deseja deletar esta noticia?"class="text-white border rounded w-14 bg-red-400">Deletar</button>
     </div>
     @endif
     <form method="post" class="flex justify-center self-center w-2/3" wire:submit.prevent='create'>

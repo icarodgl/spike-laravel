@@ -2,7 +2,7 @@
     <h1 class="text-center text-slate-300 text-4xl">Notícias</h1>
     <ul class="flex flex-col w-10/12 self-center mt-6">
         @foreach ($noticias as $noticia)
-            <li class="flex mb-5 max-h-96">
+            <li class="flex mb-5 h-full bg-slate-950 rounded-md shadow-md">
                 <div class="w-96 h-48 flex justify-center">
                     <img class="self-center max-w-36 max-h-36" src="{{ $noticia->image }}" alt="imagem">
                 </div>
@@ -12,12 +12,12 @@
                     </div>
                     <div>
                         <span class="text-slate-500 text-justify text-sm">Postado em: {{$noticia->created_at->format("j, n, Y")}}</span>
-                        <p class="text-slate-500 text-justify"> {{ $noticia->description }}</p>
+                        <p class="text-slate-500 text-justify overflow-y-auto h-28"> {{ $noticia->description }}</p>
                     </div>
                 </div>
                 @auth
                 <div>
-                    <a href="{{route('editar noticias',$noticia->id)}}" class="self-end text-slate-300 cursor-pointer">Editar</a>
+                    <a href="{{route('editar noticias',$noticia->id)}}" class="self-end m-2 text-slate-300 cursor-pointer" wire:navigate>Editar</a>
                 </div>
                 @endauth
             </li>

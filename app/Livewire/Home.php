@@ -14,7 +14,7 @@ class Home extends Component
     public function render()
     {
 
-        $noticias = Noticia::paginate(5);
+        $noticias = Noticia::latest()->paginate(5);
 
         foreach ($noticias as $noticia) {
             $noticia->image =asset($noticia->image);

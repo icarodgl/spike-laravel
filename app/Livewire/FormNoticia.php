@@ -41,7 +41,17 @@ class FormNoticia extends Component
         }
         return view('livewire.form-noticia');
     }
+    public function delete(){
+        if($this->noticia && $noticia = Noticia::find($this->noticia) ){
+            $noticia->delete();
 
+            $this->redirect('/', navigate: true);
+        }else{
+            return 'erro!';
+        }
+
+
+    }
     public function create(Request $request)
     {
 
