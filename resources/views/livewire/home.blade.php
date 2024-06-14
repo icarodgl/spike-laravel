@@ -17,7 +17,7 @@
                 </div>
                 @auth
                 <div>
-                    <a href="{{route('noticias',['noticia' => $noticia->id ])}}" class="self-end text-slate-300 cursor-pointer">Editar</a>
+                    <a href="{{route('editar noticias',$noticia->id)}}" class="self-end text-slate-300 cursor-pointer">Editar</a>
                 </div>
                 @endauth
             </li>

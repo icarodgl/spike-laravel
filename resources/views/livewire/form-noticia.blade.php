@@ -46,7 +46,7 @@
                 @enderror
             </div>
             <div class="w-full flex justify-end mt-4">
-            <button type="submit" class="text-white border rounded w-14 bg-slate-500">Criar</button>
+            <button type="submit" class="text-white border rounded w-14 bg-slate-500">Salvar</button>
             </div>
         </div>
     </form>
