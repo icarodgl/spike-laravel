@@ -33,7 +33,7 @@
                         <div>
                             <span class="text-slate-500 text-justify text-sm">Postado em:
                                 {{ $noticia->created_at->format('j, n, Y') }}</span>
-                            <p class="text-slate-500 text-justify overflow-y-auto h-28"> {{ $noticia->description }}</p>
+                            <p class="text-slate-500 mr-10 text-justify overflow-y-auto h-28"> {{ $noticia->description }}</p>
                         </div>
                     </div>
                 </div>
