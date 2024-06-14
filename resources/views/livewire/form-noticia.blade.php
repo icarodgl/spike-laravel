@@ -52,7 +52,9 @@
 
             <div class="w-full flex justify-end mt-4">
                 @if ($noticia)
-                <x-danger-button wire:click="delete" wire:confirm="Tem certeza que deseja deletar esta noticia?">Deletar</x-danger-button>
+                <div class="mr-3">
+                <x-danger-button type="button" wire:click="delete" wire:confirm="Tem certeza que deseja deletar esta noticia?">Deletar</x-danger-button>
+                </div>
                 @endif
             <x-primary-button type="submit">Salvar</x-primary-button>
             </div>
