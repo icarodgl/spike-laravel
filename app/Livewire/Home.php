@@ -27,14 +27,7 @@ class Home extends Component
     }
 
     public function searchNoticia(){
-        $noticias = Noticia::where('title', 'LIKE', "%$this->search%")->latest()->paginate(6);
-
-        foreach ($noticias as $noticia) {
-            $noticia->image =asset($noticia->image);
-        }
-        return view('livewire.home', [
-            'noticias' => $noticias,
-        ]);
+        $this->render();
     }
 
 }
