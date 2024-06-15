@@ -32,7 +32,7 @@
                     <div class="w-svw h-48">
                         <div>
                             <span class="text-slate-500 text-justify text-sm">Postado em:
-                                {{ $noticia->created_at->format('j, n, Y') }}</span>
+                                {{ $noticia->created_at->format('d/m/Y') }}</span>
                             <p class="text-slate-500 mr-10 text-justify overflow-y-auto h-28"> {{ $noticia->description }}</p>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
         @endforeach
     </ul>
 
-    <div class="flex justify-center mt-6">
+    <div class="flex justify-center my-6">
         {{ $noticias->links() }}
     </div>
 </div>
